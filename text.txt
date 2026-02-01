@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Mouuuu 💗</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  min-height:100vh;
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#ffe6ee,#fff1f5);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow-x:hidden;
+  transition:background 1.2s ease;
+}
+
+/* background after opening */
+body.opened{
+  background:
+    linear-gradient(rgba(0,0,0,0.25),rgba(0,0,0,0.25)),
+    url("her.jpg") center/cover no-repeat fixed;
+}
+
+/* main container */
+.container{
+  width:100%;
+  max-width:360px;
+  padding:20px;
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+
+/* cats */
+.cat{
+  width:150px;
+  margin:0 auto 10px;
+  animation:fadeIn 0.6s ease;
+}
+
+#crycat{display:none}
+
+/* title */
+h2{
+  font-family:'Playfair Display',serif;
+  font-weight:400;
+  margin:15px 0;
+}
+
+/* buttons */
+.buttons{margin-top:10px}
+
+button{
+  padding:10px 22px;
+  border:none;
+  border-radius:25px;
+  font-size:15px;
+  cursor:pointer;
+  margin:0 6px;
+}
+
+.yes{background:#ff8fab;color:white}
+.no{background:#e0e0e0}
+
+/* envelope */
+#envelope{
+  display:none;
+  margin:25px auto 0;
+  width:200px;
+  height:130px;
+  background:#ffb7c5;
+  border-radius:8px;
+  position:relative;
+  cursor:pointer;
+}
+
+#flap{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#ff9fb5;
+  clip-path:polygon(0 0,100% 0,50% 55%);
+  transform-origin:top;
+  transition:transform 1s ease;
+}
+
+#envelope.open #flap{
+  transform:rotateX(180deg);
+}
+
+/* letter card */
+#letter{
+  display:none;
+  margin-top:20px;
+  background:rgba(255,255,255,0.92);
+  border-radius:14px;
+  padding:18px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  animation:slideUp 1s ease;
+}
+
+/* hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:18px;
+  animation:float 6s linear infinite;
+  color:#ff7fa1;
+  z-index:1;
+}
+
+/* petals */
+.petal{
+  position:absolute;
+  top:120px;
+  font-size:14px;
+  animation:petalFall 5s linear forwards;
+  color:#ff6f91;
+}
+
+/* animations */
+@keyframes float{
+  0%{transform:translateY(0);opacity:1}
+  100%{transform:translateY(-100vh);opacity:0}
+}
+
+@keyframes petalFall{
+  0%{transform:translateY(0);opacity:1}
+  100%{transform:translateY(280px);opacity:0}
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9)}
+  to{opacity:1;transform:scale(1)}
+}
+
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- Ribbon Cat -->
+  <img src="ribboncat.png" id="ribboncat" class="cat">
+
+  <!-- Crying Cat -->
+  <img src="crycat.png" id="crycat" class="cat">
+
+  <h2>Will you open this?</h2>
+
+  <div class="buttons">
+    <button class="yes" onclick="yesClick()">Yes</button>
+    <button class="no" onclick="noClick()">No</button>
+  </div>
+
+  <!-- Envelope -->
+  <div id="envelope" onclick="openEnvelope()">
+    <div id="flap"></div>
+  </div>
+
+  <!-- Letter -->
+  <div id="letter">
+    <p>
+      Heeyyyy mouuuu.<br><br>
+      I am grateful that you are there by my side.
+      Your presence makes me the happiest.
+      This isn’t a proper confession but yk
+      I like you hehe 😝
+    </p>
+  </div>
+
+</div>
+
+<script>
+function noClick(){
+  document.getElementById("ribboncat").style.display="none";
+  document.getElementById("crycat").style.display="block";
+}
+
+function yesClick(){
+  document.getElementById("ribboncat").style.display="none";
+  document.getElementById("crycat").style.display="none";
+  document.getElementById("envelope").style.display="block";
+}
+
+function openEnvelope(){
+  document.getElementById("envelope").classList.add("open");
+  document.body.classList.add("opened");
+
+  setTimeout(()=>{
+    document.getElementById("letter").style.display="block";
+    startHearts();
+    dropPetals();
+  },800);
+}
+
+function startHearts(){
+  setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💗";
+    h.style.left=Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  },450);
+}
+
+function dropPetals(){
+  for(let i=0;i<18;i++){
+    setTimeout(()=>{
+      const p=document.createElement("div");
+      p.className="petal";
+      p.innerHTML="🌸";
+      p.style.left=(100+Math.random()*100)+"px";
+      document.getElementById("envelope").appendChild(p);
+      setTimeout(()=>p.remove(),5000);
+    },i*160);
+  }
+}
+</script>
+
+</body>
+</html>
